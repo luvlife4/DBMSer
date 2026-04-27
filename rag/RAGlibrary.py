@@ -149,7 +149,7 @@ def load_or_build_rag_library(
         embedding_model:str = "text-embedding-v4",
         docs_dir :str|Path="library",
         index_path:str|Path = "library/index.npz",
-        verbose: bool = True,
+        verbose: bool = False,
     )->RAGlibrary:
     docs_dir = Path(docs_dir)
     index_path = Path(index_path)
