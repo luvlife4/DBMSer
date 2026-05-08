@@ -55,7 +55,8 @@ def update_memory(user_input, reply,longterm_mem, dynamic_mem,client):
         messages=[
             {"role": "system", "content": "你是一个只负责更新记忆的模块，输出必须是合法 JSON。"},
             {"role": "user", "content": prompt}
-        ]
+        ],
+        response_format={"type": "json_object"} 
     )
 
     content = response.choices[0].message.content

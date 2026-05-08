@@ -1,4 +1,5 @@
 from openai import OpenAI
+import re
 import numpy as np
 from pathlib import Path
 from dataclasses import dataclass  
@@ -86,7 +87,7 @@ class RAGlibrary:
                 model=self.embedding_model,
                 input=chunk_batch
             )
-        vectors.extend(item.embedding for item in response.data)
+            vectors.extend(item.embedding for item in response.data)
         
         self.embeddings = np.array(vectors,dtype=np.float32)
     
@@ -131,19 +132,14 @@ class RAGlibrary:
 
         if self.embeddings is None:
             raise ValueError("cannot search similarity,cause theres no embeddings")
-        chunk_similarities = []
 
-        for chunk, embedding in zip(self.chunks, self.embeddings):
-            sim = _cosine_similarity(query, embedding)
-            chunk_similarities.append((chunk, sim))
-        chunk_similarities.sort(key=lambda x: x[1], reverse=True)
-        return chunk_similarities[:top_k]
+
+        sims = self.embeddings @ query / (np.linalg.norm(self.embeddings, axis=1) * np.linalg.norm(query))                                                                                                                                     
+        top_idx = np.argpartition(-sims, top_k)[:top_k]   
+        return [(self.chunks[i], sims[i]) for i in top_idx]
         
 
 #==========辅助函数=============#
-def _cosine_similarity(query:np.ndarray,documents:np.ndarray):
-    similarity = np.dot(query,documents)/(np.linalg.norm(query)*np.linalg.norm(documents))
-    return similarity
 def load_or_build_rag_library(
         client:OpenAI,
         embedding_model:str = "text-embedding-v4",

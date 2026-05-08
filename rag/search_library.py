@@ -55,6 +55,7 @@ def search_library(
             f"[资料 {i}] (来源: {chunk.source}, 相关度: {score:.3f})\n"
             f"{chunk.content}"
         )
+        print(score)
  
     return "\n\n---\n\n".join(parts)
  
