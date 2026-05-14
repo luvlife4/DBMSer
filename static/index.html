@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DBMSer</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="sidebar">
+  <div class="sidebar-title">DBMSer</div>
+  <button class="new-chat" onclick="newChat()">+ 新对话</button>
+  <button class="portrait-btn" onclick="openPortrait()">学习画像</button>
+  <button class="portrait-btn" onclick="openSchedule()">学习计划</button>
+  <div style="flex:1"></div>
+  <div style="color:var(--sub);font-size:12px;padding:8px;">数据库课程学习助手</div>
+</div>
+<div class="main">
+  <div class="messages" id="messages">
+    <div class="welcome">
+      <h2>DBMSer</h2>
+      <p>我是你的数据库课程学伴，可以问我任何数据库相关的问题！</p>
+    </div>
+  </div>
+  <div class="input-area">
+    <div class="input-wrap">
+      <textarea id="input" rows="1" placeholder="输入你的问题..." onkeydown="handleKey(event)"></textarea>
+      <button onclick="send()" id="sendBtn">↑</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="portraitOverlay" onclick="closePortrait(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3>学习画像</h3>
+      <button class="modal-close" onclick="closePortrait()">x</button>
+    </div>
+    <div class="modal-body" id="portraitBody"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="scheduleOverlay" onclick="closeSchedule(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3>学习计划</h3>
+      <button class="modal-close" onclick="closeSchedule()">x</button>
+    </div>
+    <div class="modal-body" id="scheduleBody"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

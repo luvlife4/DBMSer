@@ -12,7 +12,7 @@ if __name__ == "__main__":
                 continue
             
             print_thinking()
-            reply = agent_loop(user_input)
+            reply = agent_loop(user_input) 
             render_reply(reply)
 
     except KeyboardInterrupt:

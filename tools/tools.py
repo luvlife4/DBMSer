@@ -33,6 +33,7 @@ tools = [
         "function": {
             "name": "sqlite_exec",
             "description": (
+                "如果用户输入的sql语句不能在sqlite里执行，就不要调用这个工具。"
                 "在内存SQLite数据库中执行一条SQL语句。"
                 "数据库持久存在于整个会话中，建表后可以一直查询。"
                 "支持CREATE TABLE、INSERT、SELECT、UPDATE、DELETE等所有SQL语句。"
